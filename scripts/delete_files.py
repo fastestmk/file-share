@@ -27,7 +27,7 @@ def deleteFiles():
 			print(expired_at)
 			if obj and now > expired_at:
 				file = obj[1]
-				print(os.getcwd)
+				print(os.getcwd())
 				root_dir = os.path.dirname(os.getcwd())
 				file_path = root_dir+'/media/'+str(file)
 				print(file_path)
