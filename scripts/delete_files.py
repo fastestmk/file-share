@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.conf import settings
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-# DATABASE_URL = "postgres://wtupribqqpvbua:567e751a041b375875d895a60f941b4b585f7fde41929861ad74a4b75d821a43@ec2-3-210-178-167.compute-1.amazonaws.com:5432/d6pcsub86jqpjt"
+DATABASE_URL = "postgres://wtupribqqpvbua:567e751a041b375875d895a60f941b4b585f7fde41929861ad74a4b75d821a43@ec2-3-210-178-167.compute-1.amazonaws.com:5432/d6pcsub86jqpjt"
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 print("Opened database successfully")
 cursor = conn.cursor()
