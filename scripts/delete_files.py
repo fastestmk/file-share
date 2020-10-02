@@ -12,7 +12,7 @@ cursor = conn.cursor()
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', minutes=5)
+@sched.scheduled_job('interval', minutes=2)
 def deleteFiles():
 	sql = "SELECT * from uploader_fileupload"
 	cursor = conn.cursor()
@@ -27,10 +27,12 @@ def deleteFiles():
 			print(expired_at)
 			if obj and now > expired_at:
 				file = obj[1]
+				print(os.getcwd)
 				root_dir = os.path.dirname(os.getcwd())
 				file_path = root_dir+'/media/'+str(file)
 				print(file_path)
 				if os.path.isfile(file_path):
+					print("files deleted from media")
 					os.remove(file_path)
 				# del(obj)
 				cursor = conn.cursor()
