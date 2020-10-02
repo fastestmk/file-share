@@ -1,0 +1,27 @@
+{% extends 'uploader/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% if messages %}
+  {% for message in messages %}
+  	<input type="text" value={{ message }} id="myInput">
+	<button onclick="myFunction()">Copy text</button>
+	<a href="{{ message }}">or Download</a>
+
+  {% endfor %}
+{% endif %}
+
+
+
+<script>
+function myFunction() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+}
+</script>
+
+{% endblock %}
