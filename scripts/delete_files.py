@@ -34,6 +34,8 @@ def deleteFiles():
 				if os.path.isfile(file_path):
 					print("files deleted from media")
 					os.remove(file_path)
+				else:
+					print("wrong path")	
 				# del(obj)
 				cursor = conn.cursor()
 				cursor.execute("DELETE FROM uploader_fileupload WHERE   '"+str(expired_at)+"' < now() ;")
