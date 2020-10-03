@@ -9,7 +9,7 @@ import os
 from datetime import datetime,timedelta,date
 from django.utils import timezone
 from django.core.exceptions import ValidationError
-
+import uuid
 
 
 class SampleTest(TemplateView):
@@ -37,7 +37,7 @@ class UploadFile(TemplateView):
 		description = request.POST.get("description") 
 		uploaded_at = datetime.now(tz=timezone.utc)
 		expired_at = uploaded_at + timedelta(hours=24)
-
+		download_key = str(uuid.uuid4()).replace("-", "")[:25]
 		print(file, "---------")  
 		print(description, "---------")  
 
@@ -46,12 +46,13 @@ class UploadFile(TemplateView):
 			file_name=file_name,
 			description=description,
 			uploaded_at=uploaded_at,
-			expired_at=expired_at
+			expired_at=expired_at,
+			download_key=download_key
 		)
 		file_obj.save()
 		context['status'] = True
 		context['message'] = "file uploaded"
-		link = settings.BASE_URL+'download/'+str(file_obj.id)
+		link = settings.BASE_URL+'download/'+str(file_obj.id)+"/"+str(download_key)
 		messages.info(request, "{}".format(link))
 		return redirect('download-file')
 		# return HttpResponse(json.dumps(context),content_type="application/json")
@@ -66,8 +67,9 @@ class DownloadFile(View):
 	def get(self, request, *args, **kwargs):
 		print("In download view ---------------------")
 		file_id = kwargs['id']
+		download_key = kwargs['download_key']
 		print("File id -", file_id)
-		file_obj = FileUpload.objects.get(id=file_id)
+		file_obj = FileUpload.objects.get(id=file_id, download_key=download_key)
 
 		print(str(file_obj.description))
 		file_name =  file_obj.file #get the filename of desired excel file

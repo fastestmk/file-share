@@ -10,5 +10,6 @@ class FileUpload(models.Model):
 	file = models.FileField(validators=[file_size])
 	file_name = models.CharField(max_length=500)
 	description = models.CharField(max_length=500, blank=True, null=True)
+	download_key = models.CharField(max_length=150)
 	uploaded_at = models.DateTimeField()
 	expired_at = models.DateTimeField()

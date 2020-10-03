@@ -20,7 +20,7 @@ from .views import *
 
 urlpatterns = [
     path('', UploadFile.as_view(), name='file-upload'),
-    path('download/<id>', DownloadFile.as_view(), name='download'),
+    path('download/<id>/<download_key>', DownloadFile.as_view(), name='download'),
     path('download-file', DownloadView.as_view(), name='download-file' ),
     path('delete-file/<id>', DeleteView.as_view(), name='delete-file' )
     
