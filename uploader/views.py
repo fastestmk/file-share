@@ -26,7 +26,7 @@ class UploadFile(TemplateView):
 		file_name = str(file)
 		description = request.POST.get("description") 
 		uploaded_at = datetime.now(tz=timezone.utc)
-		expired_at = uploaded_at + timedelta(minutes=5)
+		expired_at = uploaded_at + timedelta(hours=1)
 
 		print(file, "---------")  
 		print(description, "---------")  
