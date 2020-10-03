@@ -4,14 +4,40 @@
 
 {% block content %}
 
+
+<!-- div class="card" style="width: 50rem;">
+  <div class="card-body">
+    <input type="text" value={{ message }} id="myInput" class="card-text">
+    <button onclick="myFunction()" class="btn btn-primary">Copy text</a> &nbsp;
+    <button type="button" class="btn btn-success">or Download<a href="{{ message }}"></a></button>
+
+  </div>
+</div> -->
+
+
 {% if messages %}
+  {% for message in messages %}
+<div class="card" style="width: 50rem;">
+  <div class="card-body">
+    <input type="text" value={{ message }} id="myInput" class="card-text">
+    <button onclick="myFunction()" class="btn btn-primary">Copy text</button> &nbsp;
+    &nbsp;<a href="{{ message }}"><button type="button" class="btn btn-success">or Download</button></a>
+  </div>
+</div>
+
+  {% endfor %}
+{% endif %}
+
+<!-- {% if messages %}
   {% for message in messages %}
   	<input type="text" value={{ message }} id="myInput">
 	<button onclick="myFunction()">Copy text</button>
 	<a href="{{ message }}">or Download</a>
 
   {% endfor %}
-{% endif %}
+{% endif %} -->
+
+
 
 
 
