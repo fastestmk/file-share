@@ -8,6 +8,8 @@ from django.contrib import messages
 import os
 from datetime import datetime,timedelta,date
 from django.utils import timezone
+from django.core.exceptions import ValidationError
+
 
 
 class SampleTest(TemplateView):
@@ -23,10 +25,18 @@ class UploadFile(TemplateView):
 	def post(self, request):
 		context = {}
 		file = request.FILES.get("myfile")
+
+		limit = 30 * 1024 * 1024
+		if file.size > limit:
+			context['message'] = 'File too large. Size should not exceed 30 MiB.'
+			messages.info(request, context)
+			return redirect('file-upload')
+
+
 		file_name = str(file)
 		description = request.POST.get("description") 
 		uploaded_at = datetime.now(tz=timezone.utc)
-		expired_at = uploaded_at + timedelta(hours=1)
+		expired_at = uploaded_at + timedelta(hours=24)
 
 		print(file, "---------")  
 		print(description, "---------")  
